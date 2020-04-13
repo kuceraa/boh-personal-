@@ -6,7 +6,24 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors());
+
+const corsOptions = {
+  origin: ['http://localhost:3000', 'http://localhost:4200']
+};
+app.use(cors(corsOptions));
+// CORS controls from the security blog post
+app.all('/*', (req, res, next) => {
+  // CORS headers
+  res.header("Access-Control-Allow-Origin", "*"); // restrict all access to the required domains
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+  // set custom headers for CORS
+  res.header('Access-Control-Allow-Headers', 'Content-Type,Accept,X-Access-Token,X-Key');
+  if (req.method === 'OPTIONS') {
+    res.status(200).end();
+  } else {
+    next();
+  }
+});
 
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
@@ -18,9 +35,11 @@ const port = process.env.PORT || 3000;
 app.set('pool', require('./server/pg-connector'));
 
 // implement API routes
+const api = require('./server/api.js');
 const clientsAPI = require('./server/clients-api');
 const companiesAPI = require('./server/companies-api');
 
+app.use('/api', api);
 app.use('/clients', clientsAPI);
 app.use('/companies', companiesAPI)
 

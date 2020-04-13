@@ -33,8 +33,8 @@ module.exports = {
     go(res, 'select', qryStr, params || []);
   },
 
-  selectOne: (res, qryStr, params, recordType) => {
-    go(res, 'selectOne', qryStr, params || [], recordType);
+  selectOne: (res, qryStr, params, recordType, next) => {
+    go(res, 'selectOne', qryStr, params || [], recordType, next);
   },
 
   update: (res, qryStr, params) => {
@@ -42,7 +42,7 @@ module.exports = {
   }
 };
 
-go = (res, verb, qryStr, params, recordType) => {
+go = (res, verb, qryStr, params, recordType, next) => {
   let rtn = null;
   let status = verb === 'insert' ? 201 : 200;
 
@@ -65,7 +65,12 @@ go = (res, verb, qryStr, params, recordType) => {
         rtn = rslt.rows[0];
       }
     }
-
-    res.status(status).json(rtn);
+    
+    if (status === 200 && next) {
+      res.locals['_' + recordType] = rtn;
+      next();
+    } else {
+      res.status(status).json(rtn);
+    }
   });
 }
