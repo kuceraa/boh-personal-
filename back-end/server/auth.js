@@ -15,17 +15,23 @@ const auth = {
   },
 
   validate: (req, res) => {
+    const bcrypt = require('bcrypt');
     const user = res.locals._user;
     const pwd = req.body.password;
-    const pwdChk = user.password.split(' ')[0];
-
-    // const hashed = domyhashthing(user.my_salt + pwd);
-
-    if (pwdChk === pwd) {
-      res.status(200).json({ id: user.id, username: user.user_name });
-    } else {
-      res.status(401).json({ message: 'You are not authorized.' });
-    }
+    const saltStored=user.my_salt;
+    const passwordStored = user.password;
+    bcrypt.hash(pwd, saltStored, function(err, hashed){ 
+      if(err){
+        console.log(err.message);
+      } 
+      if(passwordStored === hashed){
+        console.log({message:'success!'})
+        res.status(200).json({message:'login success!'});
+      }
+      else{
+        res.status(401).json({message:'incorrect password'});
+      }
+    });
   }
 };
 
