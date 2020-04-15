@@ -13,8 +13,6 @@ export class LoginComponent implements OnInit {
     username: new FormControl(''),
     password: new FormControl('')
   });
-  usernameStored;
-  passwordStored;
   user: { id: number; username: string; };
 
   constructor(private readonly loginService: LoginService) { }
@@ -24,18 +22,17 @@ export class LoginComponent implements OnInit {
   
   onSubmit() {
     //TODO: yeet
-    this.usernameStored = this.loginForm.controls['username'].value;
-    this.passwordStored = this.loginForm.controls['password'].value;
-    this.loginService.login(this.usernameStored, this.passwordStored).subscribe(
+    this.loginService.login(this.loginForm.controls['username'].value, this.loginForm.controls['password'].value).subscribe(
       (response) => {
         this.user = response;
+        alert("Login Successful");
       },
       (err: HttpErrorResponse) => {
-        this.user = { id: 0, username: 'not authorized' };
+        this.user = null;
+        alert(err.status);
       }
     );
     this.loginForm.reset();
-    console.warn("this.loginForm.value");
   }
 
 }

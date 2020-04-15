@@ -69,8 +69,9 @@ go = (res, verb, qryStr, params, recordType, next) => {
     if (status === 200 && next) {
       res.locals['_' + recordType] = rtn;
       next();
-    } else {
-      res.status(status).json(rtn);
+    } 
+    else {
+     res.status(status).json(rtn);
     }
   });
 }
