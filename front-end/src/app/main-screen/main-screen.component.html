@@ -16,23 +16,11 @@ table, th, td {
     <th>Phone Number</th>
     <th>Status</th>
   </tr>
-  <tr>
-    <td>{{firstNames[0]}}</td>
-    <td>{{lastNames[0]}}</td>
-    <td>{{phoneNumbers[0]}}</td>
-    <td>{{status[0]}}</td>
-  </tr>
-  <tr>
-    <td>{{firstNames[1]}}</td>
-    <td>{{lastNames[1]}}</td>
-    <td>{{phoneNumbers[1]}}</td>
-    <td>{{status[1]}}</td>
-  </tr>
-  <tr>
-    <td>{{firstNames[2]}}</td>
-    <td>{{lastNames[2]}}</td>
-    <td>{{phoneNumbers[2]}}</td>
-    <td>{{status[2]}}</td>
+  <tr *ngFor="let c of clients">
+    <td>{{c.first_name}}</td>
+    <td>{{c.last_name}}</td>
+    <td>{{c.phone_number}}</td>
+    <td>{{c.status}}</td>
   </tr>
 </table>
 

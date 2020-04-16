@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MainScreenService } from './main-screen.service';
+
+import { MainScreenService, Client } from './main-screen.service';
 
 @Component({
   selector: 'app-main-screen',
@@ -7,6 +8,7 @@ import { MainScreenService } from './main-screen.service';
   styleUrls: ['./main-screen.component.css']
 })
 export class MainScreenComponent implements OnInit {
+  clients: Client[];
 
   firstNames: Array<string> = ["Duncan", "Sam", "Nic"];
   lastNames: Array<string> = ["Webb", "Weber", "Stone"];
@@ -21,15 +23,14 @@ export class MainScreenComponent implements OnInit {
   constructor(private readonly mainScreenService: MainScreenService) {}
   
   ngOnInit(): void {
+    this.populate();
   }
 
-  populate(){
+  private populate() {
     this.mainScreenService.getClients().subscribe(
       //TODO populate firstNames, lastNames, phoneNumbers, status
-      (response)=>{
-        alert(response);
-      }
-    )
+      (clients: Client[]) => this.clients = clients
+    );
     this.mainScreenService.getCompanies().subscribe(
       //TODO populate companyNames, companyFirstNames, companyLastNames, companyEmail, companyPhone
       (response)=>{
