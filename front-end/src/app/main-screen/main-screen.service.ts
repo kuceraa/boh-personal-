@@ -8,8 +8,15 @@ const server = environment.server;
 export interface Client {
   first_name: string;
   last_name: string;
-  status: string;
+  status: number;
   phone_number: string;
+}
+export interface Company {
+  name: string;
+  contact_first_name: string;
+  contact_last_name: string;
+  primary_phone: string;
+  primary_email: string;
 }
 
 @Injectable({
@@ -23,6 +30,6 @@ export class MainScreenService {
     return this.http.get<Client[]>(server + '/caseworker/clients');
   }
   getCompanies(): Observable<any> {
-    return this.http.get<any>(server + '/caseworker/companies');
+    return this.http.get<Company[]>(server + '/caseworker/companies');
   }
 }

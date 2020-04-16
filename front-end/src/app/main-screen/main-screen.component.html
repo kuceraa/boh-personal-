@@ -46,27 +46,14 @@ table, th, td {
     <th>Primary Contact First Name</th>
     <th>Primary Contact Last Name</th>
   </tr>
-  <tr>
-    <td>{{companyNames[0]}}</td>
-    <td>{{companyPhone[0]}}</td>
-    <td>{{companyEmail[0]}}</td>
-    <td>{{companyFirstNames[0]}}</td>
-    <td>{{companyLastNames[0]}}</td>
+  <tr *ngFor="let c of companies">
+    <td>{{c.name}}</td>
+    <td>{{c.primary_phone}}</td>
+    <td>{{c.primary_email}}</td>
+    <td>{{c.contact_first_name}}</td>
+    <td>{{c.contact_last_name}}</td>
   </tr>
-  <tr>
-    <td>{{companyNames[1]}}</td>
-    <td>{{companyPhone[1]}}</td>
-    <td>{{companyEmail[1]}}</td>
-    <td>{{companyFirstNames[1]}}</td>
-    <td>{{companyLastNames[1]}}</td>  </tr>
-  <tr>
-    <td>{{companyNames[2]}}</td>
-    <td>{{companyPhone[2]}}</td>
-    <td>{{companyEmail[2]}}</td>
-    <td>{{companyFirstNames[2]}}</td>
-    <td>{{companyLastNames[2]}}</td>
-  </tr>
-</table>
+  </table>
 
 
 
