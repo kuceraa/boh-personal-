@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MainScreenService } from './main-screen.service';
 
 @Component({
   selector: 'app-main-screen',
@@ -7,9 +8,35 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainScreenComponent implements OnInit {
 
-  constructor() { }
+  firstNames: Array<string> = ["Duncan", "Sam", "Nic"];
+  lastNames: Array<string> = ["Webb", "Weber", "Stone"];
+  status: Array<number>= [1, 1, 2];
+  phoneNumbers: Array<string>=["50","56","24"]; 
+  companyNames: Array<string>=["Kroger", "Kroger", "Kroger"];
+  companyFirstNames: Array<string> = ["Bob", "Bob", "Bob"];
+  companyLastNames: Array<string>=["Kroger", "Kroger", "Kroger"];
+  companyEmail: Array<string> = ["yeet@yeet.com","yeet@yeet.com","yeet@yeet.com"];
+  companyPhone: Array<string> = ["50", "50", "50"];
 
+  constructor(private readonly mainScreenService: MainScreenService) {}
+  
   ngOnInit(): void {
   }
+
+  populate(){
+    this.mainScreenService.getClients().subscribe(
+      //TODO populate firstNames, lastNames, phoneNumbers, status
+      (response)=>{
+        alert(response);
+      }
+    )
+    this.mainScreenService.getCompanies().subscribe(
+      //TODO populate companyNames, companyFirstNames, companyLastNames, companyEmail, companyPhone
+      (response)=>{
+        alert(response);
+      }
+    )
+  }
+
 
 }

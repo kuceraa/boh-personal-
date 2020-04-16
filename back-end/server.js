@@ -38,10 +38,12 @@ app.set('pool', require('./server/pg-connector'));
 const api = require('./server/api.js');
 const clientsAPI = require('./server/clients-api');
 const companiesAPI = require('./server/companies-api');
+const caseWorkerAPI = require('./server/caseWorker-api');
 
 app.use('/api', api);
 app.use('/clients', clientsAPI);
-app.use('/companies', companiesAPI)
+app.use('/companies', companiesAPI);
+app.use('/caseworker', caseWorkerAPI);
 
 // catch all other routes and return just a simple message
 app.all('*', (req, res) => res.send('Hi, this is not a real place'));
