@@ -1,5 +1,5 @@
 const caseWorker = {
-    getAllClients: (req, res) => {
+    getAllCompanies: (req, res) => {
       const pool = req.app.get('pool');
       const qryStr = `
         select name,
@@ -7,14 +7,14 @@ const caseWorker = {
         primary_last_name,
         primary_email,
         primary_phone
-        from public.client
+        from public.company
         order by id asc limit 3
       `;
   
       pool.select(res, qryStr);
     },
   
-    getAllCompanies: (req, res) => {
+    getAllClients: (req, res) => {
         const pool = req.app.get('pool');
         const qryStr = `
           select last_name,
