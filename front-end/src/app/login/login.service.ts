@@ -1,21 +1,25 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
 
 const server = environment.server;
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
-  username: string;
-  userid: string;
+  public currentUser: Observable<any>;
 
   constructor(private http: HttpClient) { }
 
   login(username: string, password: string): Observable<any> {
-    return this.http.post<any>(server + '/api/login', { username, password });
+    return this.http.post<any>(server + '/api/login', { username, password }).pipe(map(user => {
+      localStorage.setItem('currentUser', JSON.stringify(user));
+      return user;
+    }));
   }
 }

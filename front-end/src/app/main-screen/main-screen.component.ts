@@ -7,11 +7,13 @@ import { MainScreenService, Client, Company } from './main-screen.service';
   templateUrl: './main-screen.component.html',
   styleUrls: ['./main-screen.component.css']
 })
+
 export class MainScreenComponent implements OnInit {
   clients: Client[];
   companies: Company[];
 
-  constructor(private readonly mainScreenService: MainScreenService) {}
+  constructor(private readonly mainScreenService: MainScreenService) {
+  }
   
   ngOnInit(): void {
     this.populate();
