@@ -18,8 +18,13 @@ export class LoginService {
 
   login(username: string, password: string): Observable<any> {
     return this.http.post<any>(server + '/api/login', { username, password }).pipe(map(user => {
+      this.currentUser = user;
       localStorage.setItem('currentUser', JSON.stringify(user));
       return user;
     }));
+  }
+
+  validate(): any {
+    return localStorage.getItem('currentUser');
   }
 }

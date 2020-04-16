@@ -7,12 +7,14 @@ import { LoginComponent } from './login/login.component';
 import { MainScreenComponent } from './main-screen/main-screen.component';
 import { AgGridModule } from 'ag-grid-angular';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './auth-guard.service';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent},
-  { path: 'home', component: MainScreenComponent },
+  { path: 'home', component: MainScreenComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: '/login', pathMatch: 'full'}
-]
+];
+
 @NgModule({
   imports: [
     BrowserModule,
